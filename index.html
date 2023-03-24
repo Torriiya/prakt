@@ -1,13 +1,102 @@
-<!DOCTYPE>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Github Test</title>
-</head>
-<body>
-<h1>Подейкина Лариса Сергеевна</h1>
-<!-- Комментарий -->
-<p>Всем привет! Это моя страница? и теперь она в Github!</p>
-<a herf="https://lk.asu.ru/user/"</a>
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdoctor-veterinar.ru%2Fkoshki%2Fkot-ne-pisaet&psig=AOvVaw1reJR4vCtoj6t3zLaMJyit&ust=1678858115523000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCPD96f7X2v0CFQAAAAAdAAAAABAE"></body>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>компоненты Vue</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+
+    <div id="app">
+      <h1>Профили</h1>
+      <div class="profilesWrapper">
+        <profile v-for="profile in profileList" :key="profile.id" :profile="profile"></profile>
+      </div>
+    </div>
+
+    <script>
+      const Profile = {
+        props: {
+          profile: {
+            type: Object,
+            required: true,
+          },
+        },
+        template: `
+          <div class="profilesItem">
+            <img :src="profile.photoUrl" alt="Profile picture">
+            <h2>{{ profile.name.first }} {{ profile.name.last }}</h2>
+            <p>{{ profile.age }} years old, {{ profile.gender }}</p>
+            <p>{{ profile.country }}, {{ profile.city }}</p>
+            <p>{{ profile.contacts.email }}, {{ profile.contacts.phone }}</p>
+          </div>
+        `,
+      };
+
+      const Profiles = {
+        components: {
+          'profile': Profile
+        },
+        data() {
+          return {
+            profileList: [
+              {
+                id: 0,
+                name: {
+                  first: "Иван",
+                  last: "Иванов"
+                },
+                age: 27,
+                gender: "Мужской",
+                photoUrl: 'https://i.pravatar.cc/300?img=11',
+                country: "Россия",
+                city: "Москва",
+                contacts: {
+                  email: "ivanov@gmail.com",
+                  phone: "+7 (382) 790-0888"
+                }
+              },
+              {
+                id: 1,
+                name: {
+                  first: "Ханна",
+                  last: "Новак"
+                },
+                age: 25,
+                gender: "Женский",
+                photoUrl: 'https://i.pravatar.cc/300?img=23',
+                country: "Чехия",
+                city: "Прага",
+                contacts: {
+                  email: "novak.hanna@gmail.com",
+                  phone: "+7 (276) 330-4418"
+                }
+              },
+              {
+                id: 2,
+                name: {
+                  first: "Томас",
+                  last: "Карлссон"
+                },
+                age: 32,
+                gender: "Мужской",
+                photoUrl: 'https://i.pravatar.cc/300?img=53',
+                country: "Норвегия",
+                city: "Берген",
+                contacts: {
+                  email: "karlsson.thomas@gmail.com",
+                  phone: "+7 (133) 444-8311"
+                }
+              },
+            ]
+          };
+        },
+      };
+
+      const app = Vue.createApp(Profiles);
+      app.mount("#app");
+    </script>
+  </body>
 </html>
